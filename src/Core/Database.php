@@ -12,7 +12,7 @@ class Database
     /**
      * @var string
      */
-    private static $dbname = 'car_location';
+    private static $dbname = 'forum_db';
 
     /**
      * @var string
@@ -23,10 +23,11 @@ class Database
      * @var string
      */
     private static $password = '';
+
     /**
-     * @var [type]
+     * @var \PDO
      */
-    private static $connection;
+    private static \PDO $connection;
 
     /**
      * @return void
