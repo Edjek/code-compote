@@ -2,12 +2,20 @@
 
 namespace App\Core;
 
+use App\Controller\Front\HomeController;
+
 class Router
 {
     private array $routes; // Tableau associatif pour stocker les routes et les fonction associés
     private $currentController; // Stock le contrôleur actuel pour l'action demandé
 
-    public function __construct() {}
+    public function __construct()
+    {
+        $this->add_route('/code-et-compote/', function () {
+            $this->currentController = new HomeController(); // Créé une instance du contrôleur d'accueil
+            $this->currentController->showHomePage(); // Appelle la méthode index du contrôleur d'accueil
+        });
+    }
 
     private function add_route(string $route, callable $closure): void
     {
