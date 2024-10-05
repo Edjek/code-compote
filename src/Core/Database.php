@@ -5,29 +5,16 @@ namespace App\Core;
 class Database
 {
     /**
-     * @var string
+     * @var \PDO|null
      */
-    private static $host = 'localhost';
+    private static ?\PDO $connection = null;
 
-    /**
-     * @var string
-     */
-    private static $dbname = 'forum_db';
-
-    /**
-     * @var string
-     */
-    private static $username = 'root';
-
-    /**
-     * @var string
-     */
-    private static $password = '';
-
-    /**
-     * @var \PDO
-     */
-    private static \PDO $connection;
+    private static array $config = [
+        'host' => 'localhost',
+        'dbname' => 'forum_db',
+        'username' => 'root',
+        'password' => '',
+    ];
 
     /**
      * @return void
@@ -36,12 +23,12 @@ class Database
     {
         // On verifie si $connection a déjà été créée, si c'est pas le cas on la créée
         // Design pattern Singleton : permet d'eviter d'appeler une ressource inutilement
-        if (!isset(self::$connection)) {
+        if (self::$connection === null) {
             try {
                 self::$connection = new \PDO(
-                    'mysql:host=' . self::$host . ';dbname=' . self::$dbname . ';charset=utf8',
-                    self::$username,
-                    self::$password,
+                    'mysql:host=' . self::$config['host'] . ';dbname=' . self::$config['dbname'] . ';charset=utf8',
+                    self::$config['username'],
+                    self::$config['password'],
                     [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION],
                 );
             } catch (\PDOException $e) {
