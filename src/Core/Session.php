@@ -4,7 +4,7 @@ namespace App\Core;
 
 class Session
 {
-    public function __construct()
+    public function start()
     {
         if (!isset($_SESSION)) {
             session_start();
