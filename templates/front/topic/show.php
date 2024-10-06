@@ -1,11 +1,7 @@
 <section>
-    <?php
-    foreach ($messages as $message){
-        ?>
+    <?php foreach ($messages as $message) { ?>
         <div>
-            <p><?= $message['content'] ?></p>
+            <p><?= htmlspecialchars($message['content']); ?></p>
         </div>
-        <?php
-    }
-    ?>
+    <?php } ?>
 </section>

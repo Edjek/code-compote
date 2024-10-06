@@ -11,6 +11,6 @@ class HomeController extends AbstractController
     {
         $repository = new TopicRepository();
         $topics = $repository->findAll();
-        $this->render('front/home', ['topics' => $topics]);
+        $this->render('front/home/home', ['topics' => $topics]);
     }
 }
