@@ -14,7 +14,11 @@ $session = new Session;
     <meta name="description" content="Rejoignez Code et Compote, le forum des développeurs en herbe ! Partagez vos connaissances, posez des questions et collaborez sur des projets. Développez vos compétences en programmation avec notre communauté passionnée." />
     <!-- CDN Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- CDN Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- CDN Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous" defer></script>
 
     <link rel="stylesheet" href="/code-et-compote/public/css/style.css">
@@ -27,7 +31,7 @@ $session = new Session;
         <nav class="navbar navbar-expand-sm bg-primary" data-bs-theme="dark">
             <div class="container">
                 <a class="navbar-brand" href="/code-et-compote/">
-                    <i class="bi bi-lightning-charge-fill mx-2"></i>
+                    <i class="bi bi-code-slash"></i>
                     Code et Compote
                     <img src="/code-et-compote/public/img/icon/camaro.png" alt="" class="logo">
                 </a>

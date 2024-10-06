@@ -4,10 +4,14 @@ namespace App\Core;
 
 class Session
 {
-    public function start()
+    public function __construct()
     {
-        if (!isset($_SESSION)) {
-            session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start([
+                'cookie_lifetime' => 86400,   // Durée de vie du cookie en secondes
+                'cookie_secure'   => true,    // Cookie uniquement en HTTPS
+                'cookie_httponly' => true     // Cookie inaccessible en JavaScript
+            ]);
         }
     }
 
@@ -63,6 +67,7 @@ class Session
      */
     public function isAdmin(): bool
     {
+        $_SESSION;
         return isset($_SESSION['LOGGED_ADMIN']) && $_SESSION['LOGGED_ADMIN'] === true;
     }
 }
