@@ -2,10 +2,12 @@
 
 namespace App\Controller\Front;
 
-class HomeController
+use App\Controller\AbstractController;
+
+class HomeController extends AbstractController
 {
     public function showHomePage()
     {
-        require_once '../templates/front/home.php';
+        $this->render('front/home');
     }
 }

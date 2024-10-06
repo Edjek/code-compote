@@ -1,1 +1,3 @@
-Un mélange sucré de code et de convivialité
+<section>
+    Un mélange sucré de code et de convivialité
+</section>
