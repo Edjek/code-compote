@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Controller\Front\HomeController;
+use App\Controller\Front\TopicController;
 
 class Router
 {
@@ -14,6 +15,11 @@ class Router
         $this->add_route('/code-et-compote/', function () {
             $this->currentController = new HomeController(); // Créé une instance du contrôleur d'accueil
             $this->currentController->showHomePage(); // Appelle la méthode index du contrôleur d'accueil
+        });
+
+        $this->add_route('/code-et-compote/topic/{id}', function ($params) {
+            $this->currentController = new TopicController(); // Créé une instance du contrôleur d'accueil
+            $this->currentController->show($params); // Appelle la méthode showTopic du contrôleur d'accueil avec l'id du topic en paramètre
         });
     }
 

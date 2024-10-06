@@ -2,24 +2,24 @@
 
 namespace App\Respository;
 
-class TopicRepository extends AbstractRepository
+class MessageRepository extends AbstractRepository
 {
 
     public function findAll(): array | bool
     {
-        $sql = 'SELECT * FROM topic';
+        $sql = 'SELECT * FROM message';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll();
     }
 
-    public function find($id): array | bool
+    public function findAllByIdTopic($id): array | bool
     {
-        $sql = 'SELECT * FROM topic WHERE id = :id';
+        $sql = 'SELECT * FROM message WHERE topic_id = :id';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
 
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 }

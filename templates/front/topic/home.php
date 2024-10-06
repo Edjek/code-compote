@@ -3,7 +3,7 @@
         <?php foreach ($topics as $topic) : ?>
             <tr>
                 <td>
-                    <a href="">
+                    <a href="/code-et-compote/topic/<?= $topic['id']; ?>">
                         <?= $topic['title']; ?>
                     </a>
                 </td>
