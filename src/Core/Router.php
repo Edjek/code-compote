@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\Controller\Front\Error404Controller;
 use App\Controller\Front\HomeController;
 use App\Controller\Front\TopicController;
 
@@ -18,8 +19,12 @@ class Router
         });
 
         $this->add_route('/code-et-compote/topic/{id}', function ($params) {
-            $this->currentController = new TopicController(); // Créé une instance du contrôleur d'accueil
-            $this->currentController->show($params); // Appelle la méthode showTopic du contrôleur d'accueil avec l'id du topic en paramètre
+            $this->currentController = new TopicController();
+            $this->currentController->show($params);
+        });
+        $this->add_route('/code-et-compote/error-404', function () {
+            $this->currentController = new Error404Controller();
+            $this->currentController->show();
         });
     }
 
@@ -44,6 +49,7 @@ class Router
                 return;
             }
         }
-        require_once '../templates/error-404.php';
+        header('Location: /code-et-compote/error-404'); // Redirige vers la page d'accueil si la route n'est pas trouvée
+        exit;
     }
 }
