@@ -49,7 +49,8 @@ class Router
                 return;
             }
         }
-        header('Location: /code-et-compote/error-404'); // Redirige vers la page d'accueil si la route n'est pas trouvée
-        exit;
+
+        header("HTTP/1.1 404 Not Found");
+        require_once '../templates/error-404.php';
     }
 }
