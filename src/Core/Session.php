@@ -20,21 +20,21 @@ class Session
         return false;
     }
 
-    public function isLogged(): bool
+    public function isAuthenticated(): bool
     {
-        if (isset($_SESSION['is_logged']) && $_SESSION['is_logged'] === true) {
-            return true;
-        }
-
-        return false;
+        return isset($_SESSION['is_logged']) && $_SESSION['is_logged'] === true;
     }
 
-    public function createFlashMessage(string $message): void
+    public function setFlashMessage(string $message): void
     {
-        $_SESSION['message'] = $message;
+        $_SESSION['message'] =
+            '<div class="alert alert-warning alert-dismissible fade show" role="alert">'
+            . $message .
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
     }
 
-    public function getFlashMessage(): void
+    public function displayFlashMessage(): void
     {
         if (isset($_SESSION['message'])) {
             echo $_SESSION['message'];
@@ -42,16 +42,16 @@ class Session
         }
     }
 
-    public function createUserSession(array $user): void
+    public function initUserSession(array $user): void
     {
         $_SESSION['is_logged'] = true;
         $_SESSION['status'] = $user['status'];
     }
 
-    public function destruct(): void
+    public function destroySession(): void
     {
         session_start();
-        unset($_SESSION);
+        $_SESSION = [];
         session_destroy();
     }
 }
