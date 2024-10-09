@@ -3,14 +3,18 @@
 namespace App\Controller\Front;
 
 use App\Controller\AbstractController;
-use App\Respository\TopicRepository;
+use App\Repository\TopicRepository;
 
 class HomeController extends AbstractController
 {
-    public function showHomePage(): void
+    /**
+     * @return void
+     */
+    public function show(): void
     {
         $repository = new TopicRepository();
         $topics = $repository->findAll();
-        $this->render('front/home/home', ['topics' => $topics]);
+
+        $this->render('front/home', ['topics' => $topics,]);
     }
 }

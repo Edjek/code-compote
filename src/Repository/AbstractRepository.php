@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Respository;
+namespace App\Repository;
 
 use App\Core\Database;
 
 abstract class AbstractRepository
 {
     /**
-     * @var \PDO
+     * @var \PDO|null
      */
-    protected \PDO $pdo;
+    protected ?\PDO $pdo;
 
     public function __construct()
     {
-        $this->pdo = Database::getConnectionInstance();
+        $this->pdo = Database::getPdo();
     }
 }

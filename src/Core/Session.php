@@ -6,33 +6,35 @@ class Session
 {
     public function __construct()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start([
-                'cookie_lifetime' => 86400,   // Durée de vie du cookie en secondes
-                'cookie_secure'   => true,    // Cookie uniquement en HTTPS
-                'cookie_httponly' => true     // Cookie inaccessible en JavaScript
-            ]);
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
     }
 
-    /**
-     * @param string $message
-     * @param string $type
-     *
-     * @return void
-     */
-    public function setFlashMessage(string $message, string $type): void
+    public function isAdmin(): bool
     {
-        $_SESSION['message'] =
-            '<div class="alert alert-' . $type . ' alert-dismissible fade show w-75 m-auto" role="alert">' . $message .
-            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>';
+        if (isset($_SESSION['status']) && $_SESSION['status'] === 'admin') {
+            return true;
+        }
+
+        return false;
     }
 
-    /**
-     * @return void
-     */
-    public function displayFlashMessage(): void
+    public function isLogged(): bool
+    {
+        if (isset($_SESSION['is_logged']) && $_SESSION['is_logged'] === true) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function createFlashMessage(string $message): void
+    {
+        $_SESSION['message'] = $message;
+    }
+
+    public function getFlashMessage(): void
     {
         if (isset($_SESSION['message'])) {
             echo $_SESSION['message'];
@@ -40,34 +42,16 @@ class Session
         }
     }
 
-    /**
-     * @param array $user
-     *
-     * @return void
-     */
-    public function createSession(array $user): void
+    public function createUserSession(array $user): void
     {
-        $_SESSION['LOGGED_USERNAME'] = $user['username'];
-        $_SESSION['LOGGED_ID'] = $user['id'];
-        if ($user['admin'] === 1) {
-            $_SESSION['LOGGED_ADMIN'] = true;
-        }
+        $_SESSION['is_logged'] = true;
+        $_SESSION['status'] = $user['status'];
     }
 
-    /**
-     * @return bool
-     */
-    public function isLoggedIn(): bool
+    public function destruct(): void
     {
-        return isset($_SESSION['LOGGED_ID']);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAdmin(): bool
-    {
-        $_SESSION;
-        return isset($_SESSION['LOGGED_ADMIN']) && $_SESSION['LOGGED_ADMIN'] === true;
+        session_start();
+        unset($_SESSION);
+        session_destroy();
     }
 }

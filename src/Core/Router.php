@@ -2,10 +2,9 @@
 
 namespace App\Core;
 
-use App\Controller\Front\Error404Controller;
+use App\Controller\Front\ContactController;
 use App\Controller\Front\HomeController;
-use App\Controller\Front\TopicController;
-
+use App\Controller\Front\UserController;
 class Router
 {
     private array $routes; // Tableau associatif pour stocker les routes et les fonction associés
@@ -13,22 +12,43 @@ class Router
 
     public function __construct()
     {
-        $this->add_route('/code-et-compote/', function () {
-            $this->currentController = new HomeController(); // Créé une instance du contrôleur d'accueil
-            $this->currentController->showHomePage(); // Appelle la méthode index du contrôleur d'accueil
+        $this->addRoutes('/', function (): void {
+            $this->currentController = new HomeController();
+            $this->currentController->show();
         });
 
-        $this->add_route('/code-et-compote/topic/{id}', function ($params) {
-            $this->currentController = new TopicController();
-            $this->currentController->show($params);
-        });
-        $this->add_route('/code-et-compote/error-404', function () {
-            $this->currentController = new Error404Controller();
+        $this->addRoutes('/contactez-nous', function (): void {
+            $this->currentController = new ContactController();
             $this->currentController->show();
+        });
+
+        $this->addRoutes('/inscription', function (): void {
+            $this->currentController = new UserController();
+            $this->currentController->showSignUpForm();
+        });
+
+        $this->addRoutes('/processSignUpForm', function (): void {
+            $this->currentController = new UserController();
+            $this->currentController->processSignUpForm();
+        });
+
+        $this->addRoutes('/connexion', function (): void {
+            $this->currentController = new UserController();
+            $this->currentController->showSignInForm();
+        });
+
+        $this->addRoutes('/processSignInForm', function (): void {
+            $this->currentController = new UserController();
+            $this->currentController->processSignInForm();
+        });
+
+        $this->addRoutes('/deconnexion', function (): void {
+            $this->currentController = new UserController();
+            $this->currentController->logout();
         });
     }
 
-    private function add_route(string $route, callable $closure): void
+    private function addRoutes(string $route, callable $closure): void
     {
         // Convertit la route en une expression régulière pour une correspondance flexible en url et paramètre
         $pattern = str_replace('/', '\/', $route); // Échappe les barres obliques pour la regex
@@ -40,10 +60,10 @@ class Router
     public function execute(): void
     {
         $requestUri = $_SERVER['REQUEST_URI']; // Récupère l'URL de la requête
-        // $finalPath = str_replace('/car-location', '', $requestUri); // Supprime le dossier racine pour obtenir le chemin final
+        $finalPath = str_replace('/code-et-compote2', '', $requestUri); // Supprime le dossier racine pour obtenir le chemin final
 
         foreach ($this->routes as $key => $closure) {
-            if (preg_match($key, $requestUri, $matches)) {
+            if (preg_match($key, $finalPath, $matches)) {
                 array_shift($matches);
                 $closure($matches); // Appelle la fonction associée à la route avec les éventuels paramètres capturés
                 return;
