@@ -5,6 +5,7 @@ namespace App\Core;
 use App\Controller\Front\ContactController;
 use App\Controller\Front\HomeController;
 use App\Controller\Front\UserController;
+
 class Router
 {
     private array $routes; // Tableau associatif pour stocker les routes et les fonction associés
